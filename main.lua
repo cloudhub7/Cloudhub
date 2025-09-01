@@ -18,17 +18,19 @@ local Window = Luna:CreateWindow({
     KeySystem = false
 })
 
--- Function to load a file from GitHub
-local function loadFromRepo(path)
+-- Function to load a tab script and pass Window
+local function loadTab(path)
     local url = "https://raw.githubusercontent.com/cloudhub7/Cloudhub/main/" .. path
-    local success, result = pcall(function()
-        return loadstring(game:HttpGet(url, true))()
+    local success, func = pcall(function()
+        return loadstring(game:HttpGet(url, true))
     end)
-    if not success then
-        warn("Failed to load: "..path.." - "..tostring(result))
+
+    if success and typeof(func) == "function" then
+        func()(Window)  -- Pass Window to the loaded script
+    else
+        warn("Failed to load tab: "..path)
     end
-    return result
 end
 
--- Load main tab from tabs/main.lua
-loadFromRepo("tabs/main.lua")
+-- Load the main tab
+loadTab("tabs/main.lua")
