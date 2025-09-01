@@ -21,16 +21,20 @@ local Window = Luna:CreateWindow({
 -- Function to load a tab script and pass Window
 local function loadTab(path)
     local url = "https://raw.githubusercontent.com/cloudhub7/Cloudhub/main/" .. path
-    local success, func = pcall(function()
+    local success, chunk = pcall(function()
         return loadstring(game:HttpGet(url, true))
     end)
 
-    if success and typeof(func) == "function" then
-        func()(Window)  -- Pass Window to the loaded script
+    if success and typeof(chunk) == "function" then
+        local ok, err = pcall(chunk(), Window)
+        if not ok then
+            warn("Error running tab "..path..": "..tostring(err))
+        end
     else
-        warn("Failed to load tab: "..path)
+        warn("Failed to load tab: "..path.." ("..tostring(chunk)..")")
     end
 end
 
--- Load the main tab
+-- Load tabs
 loadTab("tabs/main.lua")
+loadTab("tabs/settings.lua")
