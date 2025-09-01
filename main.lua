@@ -1,4 +1,4 @@
--- main.lua (entry point)
+-- main.lua (single file, self-contained)
 
 -- Load Luna library
 local Luna = loadstring(game:HttpGet("https://raw.nebulasoftworks.xyz/luna", true))()
@@ -18,23 +18,31 @@ local Window = Luna:CreateWindow({
     KeySystem = false
 })
 
--- Function to load a tab script and pass Window
-local function loadTab(path)
-    local url = "https://raw.githubusercontent.com/cloudhub7/Cloudhub/main/" .. path
-    local success, chunk = pcall(function()
-        return loadstring(game:HttpGet(url, true))
-    end)
+-- Example Tab inside main.lua
+local Tab = Window:CreateTab("Main")
 
-    if success and typeof(chunk) == "function" then
-        local ok, err = pcall(chunk(), Window)
-        if not ok then
-            warn("Error running tab "..path..": "..tostring(err))
-        end
-    else
-        warn("Failed to load tab: "..path.." ("..tostring(chunk)..")")
+-- Add buttons, sliders, toggles, etc. directly here
+Tab:CreateButton({
+    Name = "Example Button",
+    Callback = function()
+        print("Button clicked!")
     end
-end
+})
 
--- Load tabs
-loadTab("tabs/main.lua")
-loadTab("tabs/settings.lua")
+Tab:CreateToggle({
+    Name = "Example Toggle",
+    Default = false,
+    Callback = function(state)
+        print("Toggle state:", state)
+    end
+})
+
+Tab:CreateSlider({
+    Name = "Example Slider",
+    Min = 0,
+    Max = 100,
+    Default = 50,
+    Callback = function(value)
+        print("Slider value:", value)
+    end
+})
