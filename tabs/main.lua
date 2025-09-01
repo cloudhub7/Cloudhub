@@ -1,37 +1,27 @@
--- main.lua (entry point)
+-- tabs/main.lua
 
--- Load Luna library
-local Luna = loadstring(game:HttpGet("https://raw.nebulasoftworks.xyz/luna", true))()
+return function(Window)
+    local Tab = Window:CreateTab({
+        Name = "Main",
+        Icon = "view_in_ar",
+        ImageSource = "Material",
+        ShowTitle = true
+    })
 
--- Create the main window
-local Window = Luna:CreateWindow({
-    Name = "Cloudhub",
-    Subtitle = nil,
-    LogoID = "103421448242769",
-    LoadingEnabled = true,
-    LoadingTitle = "Cloudhub Interface Suite",
-    LoadingSubtitle = "by Cloudhub",
-    ConfigSettings = {
-        RootFolder = nil,
-        ConfigFolder = "Cloudhub"
-    },
-    KeySystem = false
-})
+    -- Example button
+    Tab:CreateButton({
+        Name = "Start",
+        Callback = function()
+            print("Main tab: Start button clicked")
+        end
+    })
 
--- Function to load a tab script and pass Window
-local function loadTab(path)
-    local url = "https://raw.githubusercontent.com/cloudhub7/Cloudhub/main/" .. path
-    local success, func = pcall(function()
-        return loadstring(game:HttpGet(url, true))
-    end)
-
-    if success and typeof(func) == "function" then
-        func()(Window)  -- Pass Window into tab script
-    else
-        warn("Failed to load tab: "..path.." ("..tostring(func)..")")
-    end
+    -- Example toggle
+    Tab:CreateToggle({
+        Name = "Enable Feature",
+        Default = false,
+        Callback = function(state)
+            print("Main tab toggle state:", state)
+        end
+    })
 end
-
--- Load tabs
-loadTab("tabs/main.lua")
-loadTab("tabs/settings.lua")
