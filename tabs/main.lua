@@ -1,5 +1,4 @@
 -- tabs/main.lua
-
 return function(Window)
     local Tab = Window:CreateTab({
         Name = "Main",
@@ -8,7 +7,6 @@ return function(Window)
         ShowTitle = true
     })
 
-    -- Example button
     Tab:CreateButton({
         Name = "Start",
         Callback = function()
@@ -16,7 +14,6 @@ return function(Window)
         end
     })
 
-    -- Example toggle
     Tab:CreateToggle({
         Name = "Enable Feature",
         Default = false,
