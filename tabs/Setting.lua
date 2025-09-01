@@ -1,5 +1,4 @@
 -- tabs/settings.lua
-
 return function(Window)
     local Tab = Window:CreateTab({
         Name = "Settings",
@@ -8,7 +7,6 @@ return function(Window)
         ShowTitle = true
     })
 
-    -- Example slider
     Tab:CreateSlider({
         Name = "Volume",
         Min = 0,
@@ -19,7 +17,6 @@ return function(Window)
         end
     })
 
-    -- Example button
     Tab:CreateButton({
         Name = "Reset Settings",
         Callback = function()
