@@ -24,13 +24,24 @@ return function(Window)
         end
     })
 
+    -- Example slider
+    Tab:CreateSlider({
+        Name = "Volume",
+        Min = 0,
+        Max = 100,
+        Default = 50,
+        Callback = function(value)
+            print("Main tab slider value:", value)
+        end
+    })
+
     -- Minimize button
     local guiVisible = true
     Tab:CreateButton({
         Name = "Minimize GUI",
         Callback = function()
             guiVisible = not guiVisible
-            Window:SetVisibility(guiVisible) -- Hide/Show the window
+            Window:SetVisibility(guiVisible)
             print("GUI visibility:", guiVisible)
         end
     })
