@@ -18,7 +18,7 @@ local Window = Luna:CreateWindow({
     KeySystem = false
 })
 
--- Function to load tabs dynamically
+-- Function to load a tab script and pass Window
 local function loadTab(path)
     local url = "https://raw.githubusercontent.com/cloudhub7/Cloudhub/main/" .. path
     local success, chunk = pcall(function()
@@ -35,5 +35,6 @@ local function loadTab(path)
     end
 end
 
--- Load the main tab
+-- Load tabs
 loadTab("tabs/main.lua")
+loadTab("tabs/player.lua")
